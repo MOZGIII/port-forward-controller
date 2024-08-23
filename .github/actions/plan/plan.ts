@@ -54,6 +54,3 @@ export const code = () =>
     modes.code,
     (platform) => !platform.isBroken && platform.essential
   );
-
-export const build = () =>
-  buildMatrix(modes.build, (platform) => !platform.isBroken);
