@@ -1,0 +1,7 @@
+[licenses]
+allow = []
+copyleft = "warn"
+allow-osi-fsf-free = "both"
+
+[licenses.private]
+ignore = true
