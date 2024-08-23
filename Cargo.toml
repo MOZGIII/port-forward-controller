@@ -1,3 +1,10 @@
 [workspace]
 resolver = "2"
 members = ["crates/*"]
+
+[workspace.dependencies]
+k8s-openapi = "0.22"
+kube = "0.93"
+tokio = "1"
+tracing = "0.1"
+tracing-subscriber = "0.3"
