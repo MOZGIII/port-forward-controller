@@ -5,6 +5,9 @@ WIP.
 A port forward controller powered by PCP - a UPnP and NAT-PMP successor protocol
 that almost any home router supports.
 
+> This has nothing to do with `kubectl port-forward` kind of port forwarding
+> and the corresponding APIs.
+
 Run it in your Kubernetes cluster and manage dynamic port forwarding rules via
 CRDs.
 
