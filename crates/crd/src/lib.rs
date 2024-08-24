@@ -7,17 +7,17 @@ use kube::CustomResource;
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
-/// A definition of the [`PortForward`] custom resource.
+/// A definition of the [`PCPMap`] custom resource.
 #[derive(CustomResource, Deserialize, Serialize, Clone, Debug, Validate, JsonSchema)]
 #[kube(
     group = "port-forward.io",
     version = "v1alpha1",
-    kind = "PortForward",
+    kind = "PCPMap",
     namespaced
 )]
-#[kube(status = "PortForwardStatus")]
+#[kube(status = "PCPMapStatus")]
 #[kube(printcolumn = r#"{"name":"Port", "jsonPath": ".spec.from", "type": "int"}"#)]
-pub struct PortForwardSpec {
+pub struct PCPMapSpec {
     /// The protocol to forward.
     #[garde(skip)] // TODO: #[garde(dive)]
     pub protocol: Protocol,
@@ -31,9 +31,9 @@ pub struct PortForwardSpec {
     pub to: SocketAddr,
 }
 
-/// A definition of the status for the [`PortForward`] custom resource.
+/// A definition of the status for the [`PCPMap`] custom resource.
 #[derive(Deserialize, Serialize, Clone, Debug, Default, JsonSchema)]
-pub struct PortForwardStatus {
+pub struct PCPMapStatus {
     /// Is port forward currently active.
     pub active: bool,
 
