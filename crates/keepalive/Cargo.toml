@@ -1,0 +1,12 @@
+[package]
+name = "keepalive-manager"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio-signal = { path = "../tokio-signal" }
+
+futures-core = { workspace = true }
+tokio = { workspace = true, features = ["rt"] }
+tokio-stream = { workspace = true }
+tokio-util = { workspace = true, features = ["rt"] }

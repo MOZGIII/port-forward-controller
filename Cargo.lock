@@ -800,6 +800,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "keepalive-manager"
+version = "0.1.0"
+dependencies = [
+ "futures-core",
+ "tokio",
+ "tokio-signal",
+ "tokio-stream",
+ "tokio-util",
+]
+
+[[package]]
 name = "kube"
 version = "0.93.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1718,6 +1729,8 @@ dependencies = [
  "bytes",
  "futures-core",
  "futures-sink",
+ "futures-util",
+ "hashbrown",
  "pin-project-lite",
  "slab",
  "tokio",
