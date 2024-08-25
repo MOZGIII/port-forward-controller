@@ -12,12 +12,12 @@ use serde::{Deserialize, Serialize};
 #[kube(
     group = "port-forward.io",
     version = "v1alpha1",
-    kind = "PCPMap",
+    kind = "PcpMap",
     namespaced
 )]
-#[kube(status = "PCPMapStatus")]
+#[kube(status = "PcpMapStatus")]
 #[kube(printcolumn = r#"{"name":"Port", "jsonPath": ".spec.from", "type": "int"}"#)]
-pub struct PCPMapSpec {
+pub struct PcpMapSpec {
     /// The protocol to forward.
     #[garde(skip)] // TODO: #[garde(dive)]
     pub protocol: Protocol,
@@ -33,7 +33,7 @@ pub struct PCPMapSpec {
 
 /// A definition of the status for the [`PCPMap`] custom resource.
 #[derive(Deserialize, Serialize, Clone, Debug, Default, JsonSchema)]
-pub struct PCPMapStatus {
+pub struct PcpMapStatus {
     /// Is port forward currently active.
     pub active: bool,
 

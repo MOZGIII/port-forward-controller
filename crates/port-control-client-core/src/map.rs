@@ -17,6 +17,7 @@ pub trait Client {
 }
 
 /// A request to the port map server.
+#[derive(Debug, Clone)]
 pub struct Request {
     /// The protocol to map the ports at.
     pub protocol: Protocol,
@@ -45,6 +46,7 @@ pub struct Request {
 }
 
 /// A response from the port map server.
+#[derive(Debug, Clone)]
 pub struct Response {
     /// The effective protocol of the mapping.
     pub protocol: Protocol,

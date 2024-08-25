@@ -1,0 +1,13 @@
+[package]
+name = "reconciler"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+crd = { path = "../crd" }
+port-control-client-core = { path = "../port-control-client-core" }
+
+k8s-openapi = { workspace = true }
+kube = { workspace = true, features = ["runtime"] }
+thiserror = { workspace = true }

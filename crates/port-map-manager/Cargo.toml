@@ -1,0 +1,12 @@
+[package]
+name = "port-map-manager"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+port-control-client-core = { path = "../port-control-client-core" }
+tokio-signal = { path = "../tokio-signal" }
+
+futures-core = { workspace = true }
+tokio = { workspace = true, features = ["rt"] }
+tokio-stream = { workspace = true }

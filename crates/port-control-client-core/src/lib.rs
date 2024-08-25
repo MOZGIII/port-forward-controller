@@ -55,6 +55,7 @@ pub mod port {
 
 /// An indication of the lifetime of an error.
 pub trait ErrorLifetime {
-    /// Returns `true` if the error is of non-retryable-in-the-short-term nature.
-    fn is_long_lifetime(&self) -> bool;
+    /// Returns the amount of seconds within which this error will likely repeat if we retry
+    /// the request
+    fn lifetime(&self) -> Option<LifetimeSeconds>;
 }
