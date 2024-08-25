@@ -27,6 +27,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "allocation-registry"
+version = "0.1.0"
+dependencies = [
+ "thiserror",
+]
+
+[[package]]
 name = "autocfg"
 version = "1.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1330,6 +1337,13 @@ checksum = "0c7bc40d0e5a97695bb96e27995cd3a08538541b0a846f65bba7a359f36700d4"
 dependencies = [
  "rustls",
  "rustls-pki-types",
+ "tokio",
+]
+
+[[package]]
+name = "tokio-signal"
+version = "0.1.0"
+dependencies = [
  "tokio",
 ]
 
