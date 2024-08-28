@@ -821,6 +821,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "pcp-opcode-core"
+version = "0.1.0"
+dependencies = [
+ "pcp-primitives",
+]
+
+[[package]]
 name = "pcp-primitives"
 version = "0.1.0"
 
