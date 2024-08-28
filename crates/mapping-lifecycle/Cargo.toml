@@ -1,0 +1,7 @@
+[package]
+name = "mapping-lifecycle"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+pcp-primitives = { path = "../pcp-primitives" }
