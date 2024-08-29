@@ -1,0 +1,14 @@
+[package]
+name = "pcp-packet"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+bytemuck = { workspace = true, optional = true, features = ["derive", "min_const_generics"] }
+static_assertions = { workspace = true }
+
+[features]
+default = ["bytemuck"]
+
+bytemuck = ["dep:bytemuck"]
