@@ -156,6 +156,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "const-sub-array"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e798d55ecd6c99d12d04e12831bbced2a44e2a8197493dd741818999698dcc0d"
+
+[[package]]
 name = "core-foundation"
 version = "0.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -825,6 +831,17 @@ checksum = "b15813163c1d831bf4a13c3610c05c0d03b39feb07f7e09fa234dac9b15aaf39"
 [[package]]
 name = "pcp-client-core"
 version = "0.1.0"
+
+[[package]]
+name = "pcp-codec"
+version = "0.1.0"
+dependencies = [
+ "bytemuck",
+ "const-sub-array",
+ "pcp-consts",
+ "pcp-packet",
+ "pcp-primitives",
+]
 
 [[package]]
 name = "pcp-consts"
