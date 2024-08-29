@@ -1,0 +1,13 @@
+[package]
+name = "pcp-codec"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+pcp-consts = { path = "../pcp-consts" }
+pcp-packet = { path = "../pcp-packet" }
+pcp-primitives = { path = "../pcp-primitives" }
+
+bytemuck = { workspace = true, features = ["must_cast"] }
+const-sub-array = { workspace = true }
