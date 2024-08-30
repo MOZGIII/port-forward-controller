@@ -833,6 +833,15 @@ name = "pcp-client-core"
 version = "0.1.0"
 
 [[package]]
+name = "pcp-client-tokio"
+version = "0.1.0"
+dependencies = [
+ "pcp-client-core",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
 name = "pcp-codec"
 version = "0.1.0"
 dependencies = [
