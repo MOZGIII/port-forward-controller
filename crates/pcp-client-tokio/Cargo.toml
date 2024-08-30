@@ -1,0 +1,11 @@
+[package]
+name = "pcp-client-tokio"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+pcp-client-core = { path = "../pcp-client-core" }
+
+tokio = { workspace = true, features = ["net", "time"] }
+tracing = { workspace = true }
