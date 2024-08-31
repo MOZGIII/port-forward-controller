@@ -1,0 +1,29 @@
+{{- if .Values.rbac.create -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "port-forward-controller.fullname" . }}
+  labels:
+    {{- include "port-forward-controller.labels" . | nindent 4 }}
+  {{- with .Values.rbac.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+rules:
+- apiGroups: ["port-forward.io"]
+  resources: ["pcpmaps", "pcpmaps/status", "pcpmaps/finalizers"]
+  verbs: ["get", "list", "watch", "patch", "update"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ include "port-forward-controller.fullname" . }}
+subjects:
+- kind: ServiceAccount
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "port-forward-controller.serviceAccountName" . }}
+roleRef:
+  kind: ClusterRole
+  name: {{ include "port-forward-controller.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}
