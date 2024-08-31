@@ -34,11 +34,11 @@ pub struct PCPMapSpec {
 /// A definition of the status for the [`PCPMap`] custom resource.
 #[derive(Deserialize, Serialize, Clone, Debug, Default, JsonSchema)]
 pub struct PCPMapStatus {
-    /// Is port forward currently active.
-    pub active: bool,
-
     /// The effective protocol number.
-    pub protocol_number: ProtocolNumber,
+    pub protocol_number: Option<ProtocolNumber>,
+
+    /// The effective Internal IP to direct the traffic to.
+    pub internal_ip: Option<String>,
 
     /// The endpoint to reach the forwarded port from the outside.
     pub external_endpoint: Option<SocketAddr>,

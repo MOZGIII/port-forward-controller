@@ -1,0 +1,21 @@
+[package]
+name = "crd-controller"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+crd = { path = "../crd" }
+indexer = { path = "../indexer" }
+pcp-client = { path = "../pcp-client" }
+pcp-consts = { path = "../pcp-consts" }
+pcp-ip-conv = { path = "../pcp-ip-conv" }
+pcp-primitives = { path = "../pcp-primitives" }
+
+derivative = { workspace = true }
+futures = { workspace = true }
+k8s-openapi = { workspace = true }
+kube = { workspace = true, features = ["runtime"] }
+thiserror = { workspace = true }
+tokio = { workspace = true, features = ["sync", "macros"] }
+tracing = { workspace = true }
