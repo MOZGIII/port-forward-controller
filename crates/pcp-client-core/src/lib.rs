@@ -11,6 +11,7 @@ use core::future::Future;
 pub const PCP_PACKET_SIZE: usize = 1100;
 
 /// Information about a received packet.
+#[derive(Debug)]
 pub struct RecvInfo {
     /// The address of the remote socket endpoint from where the packet was sent to us.
     pub src: std::net::SocketAddr,

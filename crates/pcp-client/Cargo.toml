@@ -1,0 +1,17 @@
+[package]
+name = "pcp-client"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+pcp-client-core = { path = "../pcp-client-core" }
+pcp-codec = { path = "../pcp-codec" }
+pcp-consts = { path = "../pcp-consts" }
+pcp-ip-conv = { path = "../pcp-ip-conv" }
+pcp-lifecycle = { path = "../pcp-lifecycle" }
+pcp-packet = { path = "../pcp-packet" }
+pcp-primitives = { path = "../pcp-primitives" }
+
+tokio = { workspace = true, default-features = false, features = ["sync", "macros"] }
+tracing = { workspace = true }
