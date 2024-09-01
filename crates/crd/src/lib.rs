@@ -16,7 +16,8 @@ use serde::{Deserialize, Serialize};
     namespaced
 )]
 #[kube(status = "PCPMapStatus")]
-#[kube(printcolumn = r#"{"name":"Port", "jsonPath": ".spec.from", "type": "int"}"#)]
+#[kube(printcolumn = r#"{"name":"From", "jsonPath": ".spec.from", "type": "integer"}"#)]
+#[kube(printcolumn = r#"{"name":"To", "jsonPath": ".spec.to", "type": "string"}"#)]
 pub struct PCPMapSpec {
     /// The protocol to forward.
     #[garde(skip)] // TODO: #[garde(dive)]
