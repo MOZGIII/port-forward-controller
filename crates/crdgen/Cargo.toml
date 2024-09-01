@@ -1,0 +1,11 @@
+[package]
+name = "crdgen"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+crd = { path = "../crd" }
+
+kube = { workspace = true }
+serde_yaml = { workspace = true }
