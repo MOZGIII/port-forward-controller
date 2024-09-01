@@ -3,7 +3,7 @@ set -euo pipefail
 
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.."
 
-MODE="${1?Specify mode}"
+MODE="${1:-}"
 
 help() {
   printf 'Usage: %s [mode]\n' "$0"
