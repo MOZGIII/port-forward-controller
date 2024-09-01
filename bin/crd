@@ -1,0 +1,57 @@
+#!/bin/bash
+set -euo pipefail
+
+cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.."
+
+MODE="${1?Specify mode}"
+
+help() {
+  printf 'Usage: %s [mode]\n' "$0"
+  printf '\n'
+  printf 'Modes:\n'
+  printf '  - check\n'
+  printf '  - generate\n'
+  printf '\n'
+}
+
+prep() {
+  cargo build --target-dir target/crd -p crdgen "$@"
+}
+
+# shellcheck disable=SC2120
+crdgen() {
+  cargo run --quiet --target-dir target/crd -p crdgen -- "$@"
+}
+
+CRD_PATH="./charts/port-forward-controller/templates/crd.yaml"
+
+check() {
+  prep --quiet >&2
+
+  git diff \
+    --exit-code \
+    --no-ext-diff \
+    --no-index \
+    -- \
+    "$CRD_PATH" <(crdgen)
+}
+
+generate() {
+  prep --quiet >&2
+  crdgen >"$CRD_PATH"
+}
+
+case "$MODE" in
+prep)
+  prep
+  ;;
+generate)
+  generate
+  ;;
+check)
+  check
+  ;;
+*)
+  help >&2
+  ;;
+esac
