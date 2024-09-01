@@ -1,0 +1,72 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: pcpmaps.port-forward.io
+spec:
+  group: port-forward.io
+  names:
+    categories: []
+    kind: PCPMap
+    plural: pcpmaps
+    shortNames: []
+    singular: pcpmap
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .spec.from
+      name: From
+      type: integer
+    - jsonPath: .spec.to
+      name: To
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Auto-generated derived type for PCPMapSpec via `CustomResource`
+        properties:
+          spec:
+            description: A definition of the [`PCPMap`] custom resource.
+            properties:
+              from:
+                description: The port number to forward from.
+                format: uint16
+                minimum: 0.0
+                type: integer
+              protocol:
+                description: The protocol to forward.
+                x-kubernetes-int-or-string: true
+              to:
+                description: The address to forward to.
+                type: string
+            required:
+            - from
+            - protocol
+            - to
+            type: object
+          status:
+            description: A definition of the status for the [`PCPMap`] custom resource.
+            nullable: true
+            properties:
+              external_endpoint:
+                description: The endpoint to reach the forwarded port from the outside.
+                nullable: true
+                type: string
+              internal_ip:
+                description: The effective Internal IP to direct the traffic to.
+                nullable: true
+                type: string
+              protocol_number:
+                description: The effective protocol number.
+                format: uint8
+                minimum: 0.0
+                nullable: true
+                type: integer
+            type: object
+        required:
+        - spec
+        title: PCPMap
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
