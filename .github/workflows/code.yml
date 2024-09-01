@@ -72,6 +72,35 @@ jobs:
           command: ${{ matrix.plan.mode.cargoCommand }}
           args: ${{ matrix.plan.mode.cargoArgs }}
 
+  embedded-utils:
+    strategy:
+      matrix:
+        util:
+          - name: Check CRDs
+            run: bin/crd prep && bin/crd check
+            requiresRust: true
+            modeCacheKey: check-crds
+
+      fail-fast: false
+    name: ${{ matrix.util.name }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        timeout-minutes: 5
+
+      - uses: ./.github/actions/common-setup
+        with:
+          platformCacheKey: ubuntu2204-amd64
+          modeCacheKey: ${{ matrix.util.modeCacheKey }}
+          requiresRust: ${{ matrix.util.requiresRust }}
+        timeout-minutes: 10
+
+      - run: ${{ matrix.util.run }}
+
   downloadable-utils:
     strategy:
       matrix:
