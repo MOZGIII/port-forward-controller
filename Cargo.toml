@@ -17,6 +17,7 @@ rtnetlink = "0.14"
 schemars = "0.8"
 serde = "1"
 serde_json = "1"
+serde_yaml = "0.9"
 static_assertions = "1"
 thiserror = "1"
 tokio = { version = "1", default-features = false }
