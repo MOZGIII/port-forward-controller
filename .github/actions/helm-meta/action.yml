@@ -1,0 +1,35 @@
+name: Helm Metadata
+
+description: Prepare Helm packaging metadata
+
+outputs:
+
+  short-sha:
+    description: The short for of the current commit's SHA hashsum
+    value: ${{ steps.meta.outputs.short-sha }}
+
+  chart-app-version:
+    description: The chart app version to use
+    value: ${{ steps.meta.outputs.chart-app-version}}
+
+  chart-version:
+    description: The chart version to use
+    value: ${{ steps.meta.outputs.chart-version}}
+
+runs:
+  using: composite
+  steps:
+
+    - name: Prepare metadata
+      id: meta
+      shell: bash
+      run: |
+        set -euo pipefail
+
+        SHORT_SHA="$(git rev-parse --short HEAD)"
+        CHART_APP_VERSION="sha-${SHORT_SHA}"
+        CHART_VERSION="0.0.0-${CHART_APP_VERSION}"
+
+        printf 'short-sha=%s\n' "$SHORT_SHA" >>"$GITHUB_OUTPUT"
+        printf 'chart-app-version=%s\n' "$CHART_APP_VERSION" >>"$GITHUB_OUTPUT"
+        printf 'chart-version=%s\n' "$CHART_VERSION" >>"$GITHUB_OUTPUT"
