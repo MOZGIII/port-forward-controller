@@ -1,0 +1,37 @@
+name: Helm Login
+
+description: Log Helm in to an OCI repo
+
+inputs:
+  registry:
+    required: false
+    description: |
+      OCI registry; usually host, or host:port pair, also specifies the prefix
+      of the push URL.
+
+  username:
+    required: true
+    description: OCI registry username.
+
+  password:
+    required: true
+    description: OCI registry password.
+
+runs:
+  using: composite
+  steps:
+
+    - name: Login Helm into the registry
+      shell: bash
+      run: |
+        set -euo pipefail
+
+        helm registry login \
+          -u "$USERNAME" \
+          --password-stdin \
+          "$REGISTRY" <<<"$PASSWORD"
+
+      env:
+        REGISTRY: ${{ inputs.registry }}
+        USERNAME: ${{ inputs.username }}
+        PASSWORD: ${{ inputs.password }}

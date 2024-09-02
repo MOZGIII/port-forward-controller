@@ -1,0 +1,73 @@
+name: Helm Publish
+
+description: Publish Helm chart to an OCI repo
+
+inputs:
+  chart-name:
+    required: true
+    description: The name of the chart to publish.
+
+  chart-path:
+    required: true
+    description: The path to the chart to publish.
+
+  chart-version:
+    required: true
+    description: The chart version to use.
+
+  chart-app-version:
+    required: true
+    description: The chart app version to use.
+
+  registry:
+    required: false
+    description: |
+      OCI registry; usually host, or host:port pair, also specifies the prefix
+      if the push URL.
+
+  registry-path:
+    required: false
+    description: |
+      The path to place the chart under the OCI registry's root (host);
+      make sure this path doesn't end with the chart name, as helm will add it
+      automatically.
+
+runs:
+  using: composite
+  steps:
+
+    - name: Package chart
+      id: packaging
+      shell: bash
+      run: |
+        set -euo pipefail
+        set -x
+
+        DESTINATION_DIR="${RUNNER_TEMP}/${RANDOM}${RANDOM}"
+        rm -rf "$DESTINATION_DIR"
+
+        helm package "$CHART_PATH" \
+          --app-version "$CHART_APP_VERSION" \
+          --version "$CHART_VERSION" \
+          --destination "$DESTINATION_DIR"
+
+        PACKAGE_PATH="$(find "$DESTINATION_DIR" -mindepth 1 -maxdepth 1 -name '*.tgz' -print -quit)"
+
+        printf 'destination-dir=%s\n' "$DESTINATION_DIR" >>"$GITHUB_OUTPUT"
+        printf 'package-path=%s\n' "$PACKAGE_PATH" >>"$GITHUB_OUTPUT"
+
+      env:
+        CHART_PATH: ${{ inputs.chart-path }}
+        CHART_VERSION: ${{ inputs.chart-version }}
+        CHART_APP_VERSION: ${{ inputs.chart-app-version }}
+
+    - name: Push chart
+      id: push
+      shell: bash
+      run: |
+        set -euo pipefail
+
+        helm push "$PACKAGE_PATH" "${REMOTE,,}" | tee -a "$GITHUB_STEP_SUMMARY"
+      env:
+        PACKAGE_PATH: ${{ steps.packaging.outputs.package-path }}
+        REMOTE: oci://${{ inputs.registry }}/${{ inputs.registry-path }}
