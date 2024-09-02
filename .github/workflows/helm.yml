@@ -1,0 +1,52 @@
+name: helm
+
+on:
+  push:
+    branches:
+      - "**"
+      - "!gh-readonly-queue/**"
+    tags:
+      - "v*.*.*"
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' && github.event_name != 'merge_group' }}
+
+jobs:
+  helm:
+    name: Helm
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        timeout-minutes: 5
+
+      - name: Helm meta
+        uses: ./.github/actions/helm-meta
+        id: meta
+        timeout-minutes: 5
+
+      - name: Login to GitHub Container Registry
+        if: github.event_name != 'pull_request'
+        uses: ./.github/actions/helm-login
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+        timeout-minutes: 5
+
+      - name: Publish port-forward-controller
+        uses: ./.github/actions/helm-publish
+        with:
+          chart-name: port-forward-controller
+          chart-path: charts/port-forward-controller
+          chart-version: ${{ steps.meta.outputs.chart-version }}
+          chart-app-version: ${{ steps.meta.outputs.chart-app-version }}
+          registry: ghcr.io
+          registry-path: ${{ github.repository }}/charts/port-forward-controller
+        timeout-minutes: 5
