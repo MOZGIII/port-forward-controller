@@ -1,0 +1,13 @@
+[package]
+name = "route"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[target.'cfg(target_os = "linux")'.dependencies]
+futures = { workspace = true }
+netlink-packet-route = { workspace = true }
+rtnetlink = { workspace = true, features = ["tokio"] }
+thiserror = { workspace = true }
+tokio = { workspace = true, features = ["rt"] }
+tracing = { workspace = true }
