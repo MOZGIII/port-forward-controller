@@ -5,6 +5,10 @@ metadata:
   labels:
     {{- include "port-forward-controller.labels" . | nindent 4 }}
 spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
   selector:
     matchLabels:
       {{- include "port-forward-controller.selectorLabels" . | nindent 6 }}
@@ -20,10 +24,6 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
-      strategy:
-        type: RollingUpdate
-        rollingUpdate:
-          maxSurge: 0
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
